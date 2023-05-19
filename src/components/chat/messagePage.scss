@@ -1,0 +1,16 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  .message {
+    padding: 5px;
+    &.outgoing {
+      background-color: red;
+    }
+
+    &.incoming {
+      background-color: blue;
+    }
+  }
+}
