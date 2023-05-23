@@ -1,29 +1,21 @@
-import React, { useState } from "react";
-import "./massageInput.scss";
+import React, { useState } from 'react'
+import './massageInput.scss'
 
-function SetInput(props: {cb: Function, numberPhone: string}) {
-  let [text, setText] = useState<any>();
+function SetInput(props: { cb: Function; numberPhone: string }) {
+  let [text, setText] = useState<string>()
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target != null) {
-      setText(e.target.value);
-    }
-  };
-  const handlClick = () =>{
-    console.log('start message')
+    setText(e.target.value)
+  }
+  const handlClick = () => {
     props.cb(text, props.numberPhone)
-    console.log(text)
   }
 
   return (
     <div className="inputPage">
-      <input
-        className="input"
-        value={text}
-        onChange={(e) => onChange(e)}
-      />
-      <button onClick={()=> handlClick()}>Отправить</button>
+      <input className="input" value={text} onChange={() => onChange} />
+      <button onClick={() => handlClick}>Отправить</button>
     </div>
-  );
+  )
 }
 
-export default SetInput;
+export default SetInput

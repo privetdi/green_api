@@ -1,43 +1,43 @@
-import React, { ReactElement, useEffect } from "react";
-import { api, bodyI } from "../api/api";
-import { useDispatch } from "react-redux";
-import { setListChats } from "../store/reducers/conunterSlice";
-import { API_TOKEN_INSTANCE, WA_INSTANCE } from "../api/authorization";
-import ChatPreview from "./chatPreview";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import "./chats.scss";
+import React, { ReactElement, useEffect } from 'react'
+import { api, Body } from '../api/api'
+import { useDispatch } from 'react-redux'
+import { Message, setListChats } from '../store/reducers/conunterSlice'
+import { API_TOKEN_INSTANCE, WA_INSTANCE } from '../api/authorization'
+import ChatPreview from './chatPreview'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/store'
+import './chats.scss'
 
 function Chats(props: { cb: Function }) {
-  let messageList = useSelector((state: RootState) => state.store.chatsList);
-  const dispatch = useDispatch();
+  let messageList = useSelector((state: RootState) => state.store.chatsList)
+  const dispatch = useDispatch()
 
-  async function lastIncomingMessages(): Promise<any> {
-    let res = await api<[], bodyI>(
+  async function lastIncomingMessages(): Promise<Message[]> {
+    let res = await api<Message[], Body>(
       `https://api.green-api.com/${WA_INSTANCE}/lastIncomingMessages/${API_TOKEN_INSTANCE}?minutes=${
         7 * 24 * 60
       }`,
-      { method: "GET" }
-    );
-    return res;
+      { method: 'GET' }
+    )
+    return res
   }
-  async function LastOutgoingMessages(): Promise<any> {
-    let res = await api<[], bodyI>(
+  async function LastOutgoingMessages(): Promise<Message[]> {
+    let res = await api<Message[], Body>(
       `https://api.green-api.com/${WA_INSTANCE}/LastOutgoingMessages/${API_TOKEN_INSTANCE}?minutes=${
         7 * 24 * 60
       }`,
-      { method: "GET" }
-    );
+      { method: 'GET' }
+    )
 
-    return res;
+    return res
   }
 
   useEffect(() => {
-    const IM = lastIncomingMessages();
-    IM.then((list) => dispatch(setListChats({ chatsList: list })));
-    const LM = LastOutgoingMessages();
-    LM.then((list) => dispatch(setListChats({ chatsList: list })));
-  }, []);
+    const IM = lastIncomingMessages()
+    IM.then((list) => dispatch(setListChats({ chatsList: list })))
+    const LM = LastOutgoingMessages()
+    LM.then((list) => dispatch(setListChats({ chatsList: list })))
+  }, [])
 
   return (
     <div className="chats">
@@ -49,7 +49,7 @@ function Chats(props: { cb: Function }) {
         )
       )}
     </div>
-  );
+  )
 }
 
-export default Chats;
+export default Chats

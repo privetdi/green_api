@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface MassangeList {
+export interface Message {
     type: string,
     idMessage: string,
     timestamp: number,
@@ -11,10 +11,9 @@ export interface MassangeList {
     sendByApi: boolean
 }
 
-
 export interface State {
     value: number,
-    chatsList: MassangeList[],
+    chatsList: Message[],
     callNumbersSet: Set<string>
 }
 const initialState: State = {
